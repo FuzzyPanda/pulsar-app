@@ -19,10 +19,15 @@
 - [ ] Decision D1: name, bundle identifier, icon. Nothing can be published without it.
 - [ ] Apple and Google developer accounts under the business, not a personal account.
 - [ ] Module map agreed: **Roster** (TIM2), **Access** (hub), **IT** (later). An organisation sees
-  only what it has switched on.
+  only what it has switched on. Drafted in [`MODULES.md`](MODULES.md); needs the owner's agreement
+  and answers to M1 to M3 there.
 - [ ] Decide what happens to the TIM2-only app for standalone installs: decision D2.
-- [ ] List every TIM2 mobile API call the app uses and mark which move behind hub sign-in.
-- [ ] Privacy text for location, camera and notifications.
+- [ ] List every TIM2 mobile API call the app uses and mark which move behind hub sign-in. Not
+  started: the 2026-11-13 session could not read the TIM2 repo.
+- [ ] Privacy text for location, camera and notifications. Location, notifications and Face ID
+  drafted in [`PRIVACY-TEXT.md`](PRIVACY-TEXT.md); camera waits on the TIM2 repo; none reviewed.
+- [ ] Access groundwork: what PAC has today and what the hub and PAC must build before A3 to A5.
+  Written up in [`ACCESS-GROUNDWORK.md`](ACCESS-GROUNDWORK.md); decisions D6 to D9 follow from it.
 
 ## A1 — Import and restructure
 

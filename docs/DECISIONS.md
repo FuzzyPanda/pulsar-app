@@ -9,9 +9,12 @@ Open decisions first. Move an entry to "Made" with its date when it is settled.
 | D1 | App name and bundle identifier | Decide with the hub and rostering product names (hub decision D1). TIM2's plan notes the current placeholders are "TimeIsMoney" and `com.example.timeismoney`; a bundle id is permanent once published | Any store submission |
 | D2 | One app or two | One app. Standalone TIM2 installs sign in to their own server from the same app; do not keep a second TIM2-only app alive | A1, A2 |
 | D3 | When to extract from TIM2 | After the TIM2 pilot has run on real phones for a few weeks, so fixes land once and not in two repos | A1 |
-| D4 | Native tap-to-enter (NFC or Bluetooth) | Not now. The rotating QR covers it without native modules or reader changes; revisit on client demand | Beyond A3 |
+| D4 | Native tap-to-enter (NFC or Bluetooth) | Not now. The rotating QR needs no native modules or reader changes, but it does need gateway changes: see D7. Revisit on client demand | Beyond A3 |
 | D5 | Web build | Keep it. It gives staff without the app a way in and makes testing cheap | A1 |
-| D6 | PAC guardrail on mobile apps | PAC's `CLAUDE.md` parks a member-facing app. This is a staff and manager app, a different audience, but it needs the same explicit sign-off through the PAC overseer before door features ship | A3 |
+| D6 | PAC guardrail on mobile apps | PAC's `CLAUDE.md` parks a member-facing app. This is a staff and manager app, a different audience, but it needs the same explicit sign-off through the PAC overseer before door features ship. PAC has no un-park procedure; the precedent is Pulsar Field: an owner decision recorded in PAC's backlog and its `CLAUDE.md` section 14 | A3 |
+| D7 | How the gateway checks a rotating QR | Shared secret per phone, checked on the gateway, because the plan needs it to work with poor signal. PAC matches only static codes today and its own backlog leaves mobile credentials undecided. See `ACCESS-GROUNDWORK.md` | A3 |
+| D8 | How the hub reaches a gateway | Raise it in PAC now. PAC has no design for an outside service calling in, and ranks remote write actions as Wave 3, not started, gated on a stable pilot site | A3, A4, A5 |
+| D9 | Operator timed unlock in PAC | PAC needs a new operator action. Only the installer test pulse exists. The hub must also never pass on PAC's `emergency_unlock` lockdown action | A5 |
 
 ## Made
 
@@ -25,3 +28,6 @@ Open decisions first. Move an entry to "Made" with its date when it is settled.
 |---|---|
 | The app never talks to a gateway directly; door features go through the hub | A3 to A5 |
 | Sign-in moves to the hub once it exists | A2 |
+| The roster app and the access control app both merge into this app. The owner said "probably" on 2026-11-13. Pulsar Field, the installer app, does not | A1, A3 |
+| "Access is off at a PerfectGym site" is a per-organisation setting in the hub. PAC has no such switch | A2, A3 |
+| The hub repo is `FuzzyPanda/pulsar-hub`. No repo of that name was visible on 2026-11-13; `pulsar-core` was | A2 |

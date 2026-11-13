@@ -19,6 +19,9 @@ here is limited to phase A0 in the plan.
 
 - [`docs/PLAN.md`](docs/PLAN.md) — phases and checklists
 - [`docs/DECISIONS.md`](docs/DECISIONS.md) — open decisions that block work
+- [`docs/MODULES.md`](docs/MODULES.md) — what merges in, and the module map (draft)
+- [`docs/ACCESS-GROUNDWORK.md`](docs/ACCESS-GROUNDWORK.md) — what PAC has and lacks for the Access module
+- [`docs/PRIVACY-TEXT.md`](docs/PRIVACY-TEXT.md) — permission wording (draft)
 - [`CLAUDE.md`](CLAUDE.md) — rules and where a coding session should start
 
 ## Related repos
