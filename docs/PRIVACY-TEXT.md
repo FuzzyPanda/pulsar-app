@@ -33,8 +33,16 @@ screen that location is not tracked between clock-in and clock-out.
 
 > You can still clock in. Your employer will see that no location was recorded for this shift.
 
-Whether a clock-in without location is accepted is the employer's setting in TIM2, not the app's
+Whether a clock-in without location is accepted is the employer's setting in Pulsar Roster, not the app's
 decision. Confirm the wording above against that setting before it ships.
+
+**This draft does not match the phone app as built.** The phone app's own prompt says: "Your
+position is read while the Today screen is open, to show whether you are at your site, and is
+attached to clock-ins and clock-outs so your employer can confirm attendance. It is never tracked
+in the background." Reading position while a screen is open is more than "once at clock-in and
+once at clock-out", which is what this draft and rule 5 in `CLAUDE.md` say. Either the app changes
+or the rule and this wording do. Until that is settled, the phone app's wording is the accurate
+one.
 
 **Build settings that keep the promise**
 
@@ -82,9 +90,15 @@ Not in the A0 list, but iOS will not allow Face ID without a usage string, and r
 
 ## Camera
 
-**Not drafted.** The text has to state what the camera is used for, and that depends on what the
-TIM2 app does with it. The TIM2 repo could not be read in the session that wrote this file. Write
-this section from `TimeIsMoney2/docs/api/mobile-v1.md` and the mobile plan.
+The phone app already carries this wording (`pulsar-rostering/apps/mobile/app.json`):
+
+> The camera is used to add photos to incident reports you write.
+
+> Photos you choose are attached to incident reports you write.
+
+Incident reports are switched off in the phone app today because the server has no API for them.
+If they stay off at first release, leave the camera permission out of the build; both stores
+question a permission the app never uses.
 
 The rotating door pass in A3 is shown by the phone and read by the door reader, so the Access
 module does not need the camera for it.

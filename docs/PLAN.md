@@ -7,10 +7,10 @@
 | Phase | Outcome | Depends on |
 |---|---|---|
 | A0 | Groundwork that needs no code | — |
-| A1 | The TIM2 app lives here, restructured into modules | TIM2 app proven on phones |
+| A1 | The Pulsar Roster app lives here, restructured into modules | Pulsar Roster app proven on phones |
 | A2 | Sign in through the hub; choose an organisation | Hub H1 |
 | A3 | Staff: door credential and my access | Hub H5 |
-| A4 | Managers: who is on site, doors, alerts, approvals | Hub H4, TIM2 manager API |
+| A4 | Managers: who is on site, doors, alerts, approvals | Hub H4, Pulsar Roster manager API |
 | A5 | Managers: remote door actions | Hub H6 |
 | A6 | IT: support and device help | Later |
 
@@ -18,22 +18,25 @@
 
 - [ ] Decision D1: name, bundle identifier, icon. Nothing can be published without it.
 - [ ] Apple and Google developer accounts under the business, not a personal account.
-- [ ] Module map agreed: **Roster** (TIM2), **Access** (hub), **IT** (later). An organisation sees
+- [ ] Module map agreed: **Roster** (Pulsar Roster), **Access** (hub), **IT** (later). An organisation sees
   only what it has switched on. Drafted in [`MODULES.md`](MODULES.md); needs the owner's agreement
   and answers to M1 to M3 there.
-- [ ] Decide what happens to the TIM2-only app for standalone installs: decision D2.
-- [ ] List every TIM2 mobile API call the app uses and mark which move behind hub sign-in. Not
-  started: the 2026-11-13 session could not read the TIM2 repo.
+- [ ] Decide what happens to the Pulsar Roster-only app for standalone installs: decision D2.
+- [ ] List every Pulsar Roster mobile API call the app uses and mark which move behind hub sign-in.
+  Largely overtaken: the phone app's calls all go through the typed client generated from
+  `pulsar-rostering/openapi/schema.yaml`, and its README says every staff screen already uses that
+  API. What is left is naming which sign-in is "the hub" (see `DECISIONS.md`).
 - [ ] Privacy text for location, camera and notifications. Location, notifications and Face ID
-  drafted in [`PRIVACY-TEXT.md`](PRIVACY-TEXT.md); camera waits on the TIM2 repo; none reviewed.
+  drafted in [`PRIVACY-TEXT.md`](PRIVACY-TEXT.md); camera wording copied from the phone app; none reviewed. The location draft does not match what
+  the phone app does today: see the note in that file.
 - [ ] Access groundwork: what PAC has today and what the hub and PAC must build before A3 to A5.
   Written up in [`ACCESS-GROUNDWORK.md`](ACCESS-GROUNDWORK.md); decisions D6 to D9 follow from it.
 
 ## A1 — Import and restructure
 
-- [ ] Bring `TimeIsMoney2/mobile/` across with its history (`git subtree split`, then merge here).
-  Record the TIM2 commit it was taken from.
-- [ ] From that point this repo is the only home of the app; remove `mobile/` from TIM2 in a
+- [ ] Bring `pulsar-rostering/apps/mobile/` across with its history (`git subtree split`, then merge here).
+  Record the Pulsar Roster commit it was taken from.
+- [ ] From that point this repo is the only home of the app; remove `apps/mobile/` from `pulsar-rostering` in a
   matching pull request so there are never two copies.
 - [ ] Folder structure by module: `modules/roster`, `modules/access`, `modules/it`, with shared
   `core` (auth, API client, offline queue, notifications, theme).
@@ -47,7 +50,7 @@
 - [ ] Sign in with the hub (OIDC, authorisation code with PKCE); tokens in the secure store.
 - [ ] Organisation switcher for people who belong to more than one.
 - [ ] Module visibility from the hub's response, not hard-coded.
-- [ ] Keep direct sign-in to a standalone TIM2 server, per decision D2.
+- [ ] Keep direct sign-in to a standalone Pulsar Roster server, per decision D2.
 - [ ] MFA prompts, session expiry and remote sign-out handled cleanly.
 - [ ] Push notification registration moves to the hub, with a per-device record.
 
@@ -62,7 +65,7 @@
 
 - [ ] Who is on site now, per site and across sites.
 - [ ] Door status and recent events; alerts as notifications.
-- [ ] Approve timesheets and leave (TIM2's planned manager features).
+- [ ] Approve timesheets and leave (Pulsar Roster's planned manager features).
 - [ ] Add or end a person's access by access group; card enrolment stays on site.
 - [ ] Role checks on the server; hiding a screen is not a permission.
 

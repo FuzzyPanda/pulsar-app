@@ -3,17 +3,22 @@
 **Status: planning. No code yet.** Working name; the product name is an open decision.
 
 One mobile app for a client's staff and managers across Pulsar products: rosters and clock-in from
-Time Is Money 2, door access from Pulsar Access Control, signed in once through Pulsar Hub.
+Pulsar Roster, door access from Pulsar Access Control, signed in once through Pulsar Hub.
 
 ## Where the code comes from
 
-This repo is **seeded from the Time Is Money 2 employee app**, not written from scratch. That app is
-planned in the TIM2 product branch as an Expo (React Native) app for iOS, Android and web in
-`mobile/`, against the contract in `TimeIsMoney2/docs/api/mobile-v1.md`. As of 2026-11-13 the
-`mobile/` folder was not yet on the TIM2 product branch.
+This repo is **seeded from the Pulsar Roster phone app**, not written from scratch. That app is an
+Expo (React Native) app for iOS, Android and web in `pulsar-rostering/apps/mobile/`, built against
+the contract in `pulsar-rostering/openapi/schema.yaml`.
 
-The extraction happens when that app has run on real phones in the TIM2 pilot. Until then, work
-here is limited to phase A0 in the plan.
+The old `TimeIsMoney2` repo is no longer used (owner, 2026-11-13). Rostering moved to
+`FuzzyPanda/pulsar-rostering`, read here at commit `91a7041`. Its own handover says the phone app
+passes its tests and a scripted run of the web test build, and that **nothing has been built for
+or run on a real phone**. It has no Android build and no releases.
+
+The extraction happens when that app has run on real phones in the Pulsar Roster pilot. Until then, work
+here is limited to phase A0 in the plan. Whether the extraction should still happen at all is
+decision D10.
 
 ## Read next
 
@@ -29,5 +34,5 @@ here is limited to phase A0 in the plan.
 | Repo | Role |
 |---|---|
 | `FuzzyPanda/pulsar-hub` | Sign-in, organisations, people, sites, door access. Contract: `docs/CONTRACTS.md` there |
-| `FuzzyPanda/TimeIsMoney2` | Rostering and attendance; source of the app's first screens |
+| `FuzzyPanda/pulsar-rostering` | Rostering and attendance; source of the app's first screens |
 | `FuzzyPanda/Pulsar-Access-Control` | The on-site gateway. The app never talks to a gateway directly. Its installer app, Pulsar Field, is separate and stays separate |

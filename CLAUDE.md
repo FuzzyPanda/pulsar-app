@@ -11,7 +11,7 @@ has switched on.
 
 ## Rules that do not bend
 
-1. **Do not rewrite what the TIM2 app already does.** Phase A1 imports it with history and
+1. **Do not rewrite what the Pulsar Roster app already does.** Phase A1 imports it with history and
    restructures it. Its offline-safe clocking and its tests come across intact.
 2. **The app never talks to a PAC gateway.** Everything about doors goes through the hub.
 3. **No secrets in the bundle.** No API keys, signing keys or service tokens in the repo or the
@@ -34,9 +34,11 @@ has switched on.
 
 ## Where to start
 
-- **Before the TIM2 app exists in `TimeIsMoney2/mobile/`:** only phase A0. Do not scaffold a new
+- **Until the Pulsar Roster app in `pulsar-rostering/apps/mobile/` has run on real phones:** only
+  phase A0. As of 2026-11-13 it exists and has never been built for a phone. Do not scaffold a new
   Expo project here; an empty scaffold would collide with the import in A1.
-- **Once it exists and has run on phones:** phase A1, starting with the history-preserving import.
+- **Once it has run on phones, and decision D10 is made:** phase A1, starting with the
+  history-preserving import.
 - Tick boxes in `docs/PLAN.md` as items land.
 
 ## Commands

@@ -1,7 +1,7 @@
 # Access groundwork
 
 **Written 2026-11-13 from a read of `Pulsar-Access-Control` at commit `416eef1`.** Nothing here was
-run; it is what the code and docs say. The hub repo and the TIM2 repo were not read.
+run; it is what the code and docs say. The hub repo and the Pulsar Roster repo were not read.
 
 This file answers one question: what does the Access module (A3 to A5) need that the gateway does
 not have yet? The app never calls a gateway, so every gap below is work for the hub, PAC or both
@@ -111,7 +111,7 @@ This is the largest gap and it sits under everything above.
 - Cross-site write actions are Wave 3 in PAC's plan, **not started**, and gated on at least one
   stable pilot site.
 - Per-site device certificates exist but are off by default.
-- PAC's docs never mention Pulsar Hub, TIM2 or a staff app.
+- PAC's docs never mention Pulsar Hub, Pulsar Roster or a staff app.
 
 So A3 to A5 depend on a PAC decision that has not been raised there yet. This is decisions D6
 and D8.
@@ -125,5 +125,8 @@ hub holds per organisation, not something the gateway reports.
 
 ## Names that do not line up
 
-`README.md` names `FuzzyPanda/pulsar-hub`. No repo of that name was visible on 2026-11-13; a
-`FuzzyPanda/pulsar-core` was. Confirm which repo holds the hub and fix the table in the README.
+`README.md` names `FuzzyPanda/pulsar-hub`. That repo exists but was not read for this file.
+`pulsar-rostering` calls itself "Platform (hub)" and has an Access application that links to
+Pulsar Hub and to gateways, "no door commands". Its handover lists, as needing the owner, "a
+decision through Pulsar's own scope process before anything lets a phone open a door". That is the
+same gate as decision D6 here.
