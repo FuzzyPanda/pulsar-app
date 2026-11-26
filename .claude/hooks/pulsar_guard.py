@@ -1,4 +1,8 @@
-"""Shared Pulsar Claude Code hooks. Vendored into each repo by pulsar-agent-kit/scripts/sync.sh; edit the kit,
+#!/usr/bin/env python3
+# ruff: noqa
+# fmt: off
+# Vendored into many repos with different lint configs, so repo linters skip it; the kit lints it.
+"""Shared Pulsar Claude Code hooks. Vendored into each repo by claude-kit/scripts/sync.sh; edit the kit,
 not the copy. Standard library only. Reads the hook JSON on stdin.
 
   pulsar_guard.py pre-bash    PreToolUse/Bash: block force push, history rewrites on main, reading secrets
@@ -24,7 +28,9 @@ import subprocess
 import sys
 from pathlib import Path
 
-PROJECT = Path(os.environ.get("CLAUDE_PROJECT_DIR") or Path(__file__).resolve().parents[2])
+PROJECT = Path(
+    os.environ.get("CLAUDE_PROJECT_DIR") or Path(__file__).resolve().parents[2]
+)
 CONFIG_FILE = PROJECT / ".claude" / "pulsar-guard.json"
 LINT_TIMEOUT = 20  # seconds per command; the full suite belongs in CI, not here
 
@@ -33,13 +39,19 @@ SECRET_NAME_RE = re.compile(
     re.IGNORECASE,
 )
 SAFE_ENV_RE = re.compile(r"\.env\.(?:example|sample|template|dist)$", re.IGNORECASE)
-SECRET_DIR_RE = re.compile(r"(?:^|[\\/])(?:secrets?|\.secrets)(?:[\\/]|$)", re.IGNORECASE)
+SECRET_DIR_RE = re.compile(
+    r"(?:^|[\\/])(?:secrets?|\.secrets)(?:[\\/]|$)", re.IGNORECASE
+)
 
 FORCE_PUSH_RE = re.compile(
     r"\bgit\b[^;&|\n]*\bpush\b[^;&|\n]*(?:\s--force(?:-with-lease|-if-includes)?\b|\s-[a-zA-Z]*f\b|\s\+\S+)"
 )
-MAIN_REWRITE_RE = re.compile(r"\bgit\b[^;&|\n]*\bpush\b[^;&|\n]*\s(?:origin\s+)?:?(?:main|master)\b[^;&|\n]*--delete")
-SHELL_READ_RE = re.compile(r"\b(?:cat|less|more|head|tail|bat|type|Get-Content|gc|source|\.)\s+[^;&|\n]*")
+MAIN_REWRITE_RE = re.compile(
+    r"\bgit\b[^;&|\n]*\bpush\b[^;&|\n]*\s(?:origin\s+)?:?(?:main|master)\b[^;&|\n]*--delete"
+)
+SHELL_READ_RE = re.compile(
+    r"\b(?:cat|less|more|head|tail|bat|type|Get-Content|gc|source|\.)\s+[^;&|\n]*"
+)
 ENV_TOKEN_RE = re.compile(r"(?<![\w.-])(?:\S*[\\/])?\.env(?:\.[\w-]+)?(?![\w-])")
 WRITE_OPS_RE = re.compile(
     r"(?:>>?|\btee\b|\bcp\b|\bmv\b|\brm\b|\bsed\s+-i|\bdd\b|\btruncate\b|Set-Content|Out-File|Remove-Item)"
@@ -87,12 +99,16 @@ def pre_bash(data: dict, cfg: dict) -> None:
     for m in SHELL_READ_RE.finditer(cmd):
         for tok in ENV_TOKEN_RE.findall(m.group(0)):
             if not SAFE_ENV_RE.search(tok):
-                block(f"{tok} holds secrets. Read .env.example for variable names instead.")
+                block(
+                    f"{tok} holds secrets. Read .env.example for variable names instead."
+                )
     if WRITE_OPS_RE.search(cmd):
         for pat in cfg.get("protected", []):
             stem = pat.split("*")[0].rstrip("/")
             if stem and stem in cmd:
-                block(f"{pat} is protected in .claude/pulsar-guard.json; don't write there from Claude Code.")
+                block(
+                    f"{pat} is protected in .claude/pulsar-guard.json; don't write there from Claude Code."
+                )
 
 
 def file_path(data: dict) -> str:
@@ -104,8 +120,12 @@ def pre_file(data: dict, cfg: dict) -> None:
     p = file_path(data)
     if not p:
         return
-    if is_secret(p) and not any(fnmatch.fnmatch(rel(p), pat) for pat in cfg.get("allow", [])):
-        block(f"{rel(p)} looks like a secret. Use .env.example for names; Adam handles real values.")
+    if is_secret(p) and not any(
+        fnmatch.fnmatch(rel(p), pat) for pat in cfg.get("allow", [])
+    ):
+        block(
+            f"{rel(p)} looks like a secret. Use .env.example for names; Adam handles real values."
+        )
     if is_protected(p, cfg):
         block(f"{rel(p)} is protected in .claude/pulsar-guard.json.")
 
@@ -147,14 +167,24 @@ def post_edit(data: dict, cfg: dict) -> None:
             continue  # tool not installed here; CI still runs it
         argv = [exe, *[a.replace("{file}", p) for a in cmd[1:]]]
         try:
-            r = subprocess.run(argv, cwd=PROJECT, capture_output=True, text=True, timeout=LINT_TIMEOUT)  # noqa: S603
+            r = subprocess.run(
+                argv,
+                cwd=PROJECT,
+                capture_output=True,
+                text=True,
+                timeout=LINT_TIMEOUT,
+                check=False,
+            )
         except (OSError, subprocess.TimeoutExpired) as e:
             print(f"pulsar_guard: {cmd[0]} skipped ({e})", file=sys.stderr)
             continue
         if r.returncode != 0:
             findings.append(f"$ {' '.join(cmd)}\n{(r.stdout + r.stderr)[-1500:]}")
     if findings:
-        print("Lint findings in the file you just edited:\n" + "\n".join(findings), file=sys.stderr)
+        print(
+            "Lint findings in the file you just edited:\n" + "\n".join(findings),
+            file=sys.stderr,
+        )
         sys.exit(2)
 
 
@@ -164,7 +194,9 @@ def main() -> None:
         data = json.load(sys.stdin)
     except ValueError:
         data = {}
-    handler = {"pre-bash": pre_bash, "pre-file": pre_file, "post-edit": post_edit}.get(mode)
+    handler = {"pre-bash": pre_bash, "pre-file": pre_file, "post-edit": post_edit}.get(
+        mode
+    )
     if handler:
         handler(data, load_config())
 
